@@ -1,4 +1,4 @@
-# N-Puzzle Solver
+# N-Puzzle
 
 這是一個以 C++ 撰寫的 N-Puzzle 解析程式。它使用 **A\* (A-Star)** 搜尋演算法，能在短時間內解開各種類型與大小（3x3, 4x4, 5x5...）的拼圖。
 

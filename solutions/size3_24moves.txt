@@ -1,0 +1,147 @@
+=== N-Puzzle Solver Full Report ===
+Size: 3x3
+Heuristic: manhattan
+Algorithm: astar
+
+Initial state:
+8 6 4
+7 5 2
+0 1 3
+
+Goal state (snail):
+1 2 3
+8 0 4
+7 6 5
+
+Solution found!
+Execution time: 0.00117146 seconds (1 ms)
+Number of moves: 24
+Time complexity (states opened): 897
+Space complexity (max states in memory): 1470
+
+=== Solution Path ===
+--- Initial ---
+8 6 4
+7 5 2
+0 1 3
+
+--- Move 1 ---
+8 6 4
+0 5 2
+7 1 3
+
+--- Move 2 ---
+0 6 4
+8 5 2
+7 1 3
+
+--- Move 3 ---
+6 0 4
+8 5 2
+7 1 3
+
+--- Move 4 ---
+6 5 4
+8 0 2
+7 1 3
+
+--- Move 5 ---
+6 5 4
+8 1 2
+7 0 3
+
+--- Move 6 ---
+6 5 4
+8 1 2
+0 7 3
+
+--- Move 7 ---
+6 5 4
+0 1 2
+8 7 3
+
+--- Move 8 ---
+6 5 4
+1 0 2
+8 7 3
+
+--- Move 9 ---
+6 0 4
+1 5 2
+8 7 3
+
+--- Move 10 ---
+0 6 4
+1 5 2
+8 7 3
+
+--- Move 11 ---
+1 6 4
+0 5 2
+8 7 3
+
+--- Move 12 ---
+1 6 4
+8 5 2
+0 7 3
+
+--- Move 13 ---
+1 6 4
+8 5 2
+7 0 3
+
+--- Move 14 ---
+1 6 4
+8 0 2
+7 5 3
+
+--- Move 15 ---
+1 0 4
+8 6 2
+7 5 3
+
+--- Move 16 ---
+1 4 0
+8 6 2
+7 5 3
+
+--- Move 17 ---
+1 4 2
+8 6 0
+7 5 3
+
+--- Move 18 ---
+1 4 2
+8 6 3
+7 5 0
+
+--- Move 19 ---
+1 4 2
+8 6 3
+7 0 5
+
+--- Move 20 ---
+1 4 2
+8 0 3
+7 6 5
+
+--- Move 21 ---
+1 0 2
+8 4 3
+7 6 5
+
+--- Move 22 ---
+1 2 0
+8 4 3
+7 6 5
+
+--- Move 23 ---
+1 2 3
+8 4 0
+7 6 5
+
+--- Move 24 ---
+1 2 3
+8 0 4
+7 6 5
+

@@ -1,4 +1,134 @@
-# N-Puzzle
+<p align="right">
+  <a href="#n-puzzle-解析器">
+    <img src="https://img.shields.io/badge/中文-seagreen?style=for-the-badge" />
+  </a>
+</p>
+
+# N-Puzzle Solver
+
+This is an N-Puzzle solver written in C++. It utilizes the **A\* (A-Star)** search algorithm to efficiently solve puzzles of various types and sizes (3x3, 4x4, 5x5, etc.).
+
+This project is designed to explore heuristic search algorithms, optimization techniques, and space/time complexity tradeoff.
+
+### Example: A Scrambled 8-puzzle (3x3)
+<table>
+  <tr>
+    <td>8</td> <td> </td> <td>6</td>
+  </tr>
+  <tr>
+    <td>5</td> <td>4</td> <td>7</td>
+  </tr>
+  <tr>
+    <td>2</td> <td>3</td> <td>1</td>
+  </tr>
+</table>
+
+### Targets the "Snail Goal" final state:
+<table>
+  <tr>
+    <td>1</td> <td>2</td> <td>3</td>
+  </tr>
+  <tr>
+    <td>8</td> <td> </td> <td>4</td>
+  </tr>
+  <tr>
+    <td>7</td> <td>6</td> <td>5</td>
+  </tr>
+</table>
+
+## ✨ Features
+
+- **Flexible Sizes**: Supports 3x3 up to larger N-Puzzle configurations.
+- **Snail Goal Solution**: Paths are calculated towards the spiral (snail) goal state.
+- **Solvability Check**: Automatically determines if a puzzle is solvable before starting the search, preventing infinite loops on impossible inputs.
+- **Three Heuristic Functions**:
+  - **Manhattan Distance**: The standard, "as-the-crow-flies" distance.
+  - **Hamming Distance**: Simply counts tiles in incorrect positions.
+  - **Linear Conflict**: Built on Manhattan Distance plus a penalty for tiles in their correct tracks but incorrect sequence. This is the **most efficient** heuristic for complex puzzles.
+- **Search Mode Variants (Bonus)**:
+  - **A\*** (Default): Balanced cost (g) and heuristic (h).
+  - **Uniform-cost Search**: Considers cost (g) only. Guarantees the shortest path but is slower.
+  - **Greedy Best-First Search**: Considers heuristic (h) only. Fastest but may find sub-optimal paths.
+
+## 🚀 Installation & Compilation
+
+The project uses a standard `Makefile`:
+
+```bash
+cd N-Puzzle
+make
+```
+
+## 🛠️ Usage
+
+### Basic Usage (Generate a random 3x3 and solve)
+```bash
+./npuzzle
+```
+
+### Solve from a File
+```bash
+./npuzzle -f [path_to_file]
+```
+
+### Advanced Config
+```bash
+# Generate 4x4 and use Linear Conflict heuristic
+./npuzzle -s 4 -h linear_conflict
+
+# Use a different search algorithm
+./npuzzle -a greedy
+```
+
+### CLI Arguments
+- `-f <file>`: Load puzzle from the specified file.
+- `-s <size>`: Generate a random solvable size×size puzzle (default: 3).
+- `-h <type>`: Select heuristic: `manhattan`, `hamming`, `linear_conflict` (default: `manhattan`).
+- `-a <algo>`: Select algorithm: `astar`, `uniform`, `greedy` (default: `astar`).
+
+## 📁 File Format Specification
+
+Input files must follow this structure:
+```text
+# This is a comment
+3
+3 2 6 # Inline comment
+1 4 0
+8 7 5
+```
+
+## 📊 Search Statistics
+
+Upon completion, the solver outputs:
+- **Execution time**: Time taken to find the solution.
+- **Time complexity**: Total number of states (nodes) selected from the open set.
+- **Space complexity**: Maximum number of states kept in memory simultaneously.
+- **Number of moves**: Total moves required to reach the goal.
+- **Solution Path**: The detailed move sequence is saved to a file in the `solutions` folder named `sizeN_Mmoves.txt` (where N is size and M is move count).
+
+## 🎨 Web Visualizer
+
+The project includes a standalone, high-quality **Web Visualizer** (`visualizer.html`).
+It is a **fully static file**—no server required. Simply open it in any modern browser.
+
+**Key Features:**
+1. **Snail Goal Support**: Aligned with the spiral goal of this project; correctly placed tiles glow with a neon border.
+2. **Interactive Mode**: Manually click tiles to slide them. Useful for verifying parity and connectivity theories.
+3. **Autoplay Path**: Paste the output move sequence from your `sizeN_Mmoves.txt` report into the visualizer to watch the A* algorithm's optimal path in action with smooth animations!
+
+<br/>
+
+---
+
+<br/>
+
+<p align="right">
+  <a href="#n-puzzle-solver">
+    <img src="https://img.shields.io/badge/-TOP-darkcyan?style=for-the-badge" />
+  </a>
+</p>
+
+# N-Puzzle 解析器
 
 這是一個以 C++ 撰寫的 N-Puzzle 解析程式。它使用 **A\* (A-Star)** 搜尋演算法，能在短時間內解開各種類型與大小（3x3, 4x4, 5x5...）的拼圖。
 

@@ -1,6 +1,6 @@
 <p align="right">
   <a href="#n-puzzle-解析器">
-    <img src="https://img.shields.io/badge/中文-seagreen?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/中文-sienna?style=for-the-badge" />
   </a>
 </p>
 
@@ -42,7 +42,7 @@ This project is designed to explore heuristic search algorithms, optimization te
 - **Snail Goal Solution**: Paths are calculated towards the spiral (snail) goal state.
 - **Solvability Check**: Automatically determines if a puzzle is solvable before starting the search, preventing infinite loops on impossible inputs.
 - **Three Heuristic Functions**:
-  - **Manhattan Distance**: The standard, "as-the-crow-flies" distance.
+  - **Manhattan Distance**: The sum of the absolute differences of their respective Cartesian coordinates.
   - **Hamming Distance**: Simply counts tiles in incorrect positions.
   - **Linear Conflict**: Built on Manhattan Distance plus a penalty for tiles in their correct tracks but incorrect sequence. This is the **most efficient** heuristic for complex puzzles.
 - **Search Mode Variants (Bonus)**:
@@ -124,7 +124,7 @@ It is a **fully static file**—no server required. Simply open it in any modern
 
 <p align="right">
   <a href="#n-puzzle-solver">
-    <img src="https://img.shields.io/badge/-TOP-darkcyan?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/-TOP-sienna?style=for-the-badge" />
   </a>
 </p>
 
@@ -166,7 +166,7 @@ It is a **fully static file**—no server required. Simply open it in any modern
 - **螺旋目標狀態 (Snail Goal Solution)**：解法遵循題目規定的「螺旋狀」最終排列。
 - **可解性檢查**：在搜尋前自動判斷拼圖是否有解，避免進入死循環。
 - **三種啟發式函數 (Heuristics)**：
-  - **Manhattan Distance**: 最經典、標準的距離計算方式。
+  - **Manhattan Distance**: 平面上兩點間各座標差的絕對值之和。
   - **Hamming Distance**: 計算不在正確位置上的方塊數量。
   - **Linear Conflict**: 以 Manhattan 為基礎，針對同一行列的順序錯誤進行額外懲罰。效能最強大、搜尋效率最高。
 - **多種搜尋模式 (Bonus)**：
@@ -238,4 +238,4 @@ make
 **主要功能：**
 1. **Snail Goal (螺旋目標) 支援**：對應螺旋目標，到達正確位置的方塊會發出霓虹光芒。
 2. **Interactive Mode (手動點擊)**：可輸入自定義的盤面，手動點擊方塊滑動，隨時查看距離目標的位移數量，適合用來驗證「拼圖奇偶性與連通性」。
-3. **Autoplay (自動播放路徑)**：只需將本程式輸出的 `sizeN_Mmoves.txt` 中的解題步驟複製貼上，網頁便會自動演示 A* 演算法計算出的滑動路徑！
+3. **Autoplay (自動播放路徑)**：只需將本程式輸出的 `sizeN_Mmoves.txt` 中的解法貼上，網頁便會自動演示 A* 演算法計算出的滑動路徑。

@@ -142,6 +142,26 @@ SearchResult solve(const Puzzle& initial, const Puzzle& goal,
 
     return result;
 }
+// Total number of states ever selected in the "opened" set (complexity in time):
+// 「程式並沒有一次就走對路徑」。
+
+// 以下用更具體的比喻來解釋它們之間的差異：
+
+// 1. Number of Moves (最終解答的步數) =「正確答案的長度」
+//     這就像是用 Google Maps 導航。從出發地到目的地，那條最終畫出來的藍色路線，
+//     總共有幾個轉彎（幾步）。在這題，藍色路線就是那 24 步（Move 1 到 Move 24）。
+
+// 2. States Opened (展開的狀態數) =「找路的過程中所嘗試過的交叉路口」
+//     你的程式沒有上帝視角，它一開始並不知道哪條路是正確的。
+
+// 在尋找這條 24 步的最佳路徑時，演算法經歷了這樣的過程：
+
+// 1. 程式稍微往左走了一點（展開了一些狀態），覺得分數不錯。
+// 2. 走了幾步後，發現原本覺得很好的路，分數越來越差（遇到死胡同或繞遠路了）。
+// 3. 於是程式回頭，從記憶體裡挑出另一個一開始沒走、但現在看起來比較有希望的盤面，重新探索另一條分支。
+// 4. 這樣來來回回、到處嘗試其他的可能性。
+// 在這個過程中，程式總共「嘗試檢查/試探了 774 個不同的盤面」，
+// 才終於在茫茫宇宙中，成功拼湊出了那條只需要 24 步就能到達終點的完美路徑。
 
 SearchMode getSearchMode(const std::string& name) {
     if (name == "astar") return SearchMode::ASTAR;

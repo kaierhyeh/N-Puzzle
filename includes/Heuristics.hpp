@@ -38,3 +38,20 @@ namespace Heuristics {
  * 一個好的啟發式函數必須是 Admissible（可容許的），意思是它「永遠不能高估」真實成本。
  * 如果它高估了，A* 就無法保證找到最佳解。我們在這裡計算的都是「理論上的最短物理距離下限」。
  */
+
+ /*
+ * Heuristics:
+ * A function that assigns each puzzle state a "predicted distance score" based on observation.
+ * The lower this score, the more the algorithm considers the state to be "closer to the solution,"
+ * and thus prioritizes exploring that path.
+ * The more accurate this function is, the fewer unnecessary paths the algorithm explores,
+ * and the faster the solution is found!
+ *
+ * In the A* search algorithm, the evaluation function is: f(n) = g(n) + h(n).
+ * - g(n) is the "actual cost already incurred" (the number of steps taken from the start).
+ * - h(n) is the "heuristic function," representing the estimated distance from the current state to the goal.
+ *
+ * A good heuristic must be admissible, meaning it must "never overestimate" the true cost.
+ * If it does, A* can no longer guarantee finding the optimal solution.
+ * The values we compute here represent the theoretical lower bound of the shortest possible distance.
+ */

@@ -17,6 +17,27 @@
 // Row 2:  [7] [6] [5]
 //     存為一維陣列：[8, 1, 3, 4, 0, 2, 7, 6, 5]，
 //     因此在程式裡，移動空白格或計算啟發式函數時，會頻繁看到 / (除法) 和 % (取餘數) 。
+
+// std::vector<int> (1D dynamic array):
+//     - Memory Contiguity (Cache Locality): A 1D array is fully contiguous in memory,
+//       which significantly improves CPU cache hit rate.
+//     - Copy Overhead: Copying a 1D array → low cost.
+//       (Copying a 2D array requires calling the copy constructor for each row,
+//       which becomes a major performance bottleneck.)
+//     - In practice, for larger boards (4x4 and above), using a 1D array is a key factor
+//       in allowing the program to finish within seconds.
+//
+// Example:
+// Row 0:  [8] [1] [3]
+// Row 1:  [4] [0] [2]   (0 represents the empty tile)
+// Row 2:  [7] [6] [5]
+//
+// Stored as a 1D array: [8, 1, 3, 4, 0, 2, 7, 6, 5]
+//
+// Therefore, operations such as moving the empty tile or computing heuristics
+// will frequently involve / (division) and % (modulo) operations.
+
+
 class Puzzle {
 public:
     std::vector<int> board;
@@ -57,3 +78,9 @@ namespace std {            // 打開標準庫的大門
 // 透過 namespace，我們可以把程式碼分類：
 // - Parser::solve（Parser 資料夾裡的搜尋函式）
 // - Solver::solve（Solver 資料夾裡的搜尋函式）
+
+// In C++, a namespace is like a "folder" in a computer.
+// Its main purpose is to avoid naming collisions.
+// By using namespaces, we can organize code into logical groups:
+// - Parser::solve  (the solve function inside the Parser "folder")
+// - Solver::solve  (the solve function inside the Solver "folder")

@@ -90,4 +90,22 @@ Puzzle generateRandom(int n) {
 //         若 rng 吐出的原始大數字「剛好掉在那個除不盡的尾巴上」時，就會被拒絕，以確保公平性。
 //         (因若用 rand() % N，會因餘數而產生偏誤)
 
+
+// Mersenne Twister: a pseudorandom number generator
+//     Produces highly random-looking numbers (hard to detect patterns),
+//     but the generated values can be very large.
+//
+// std::uniform_int_distribution<int> dist(a, b):
+//     A uniform integer distribution over [a, b] (inclusive).
+//     It requires a random number generator and returns an integer within [a, b].
+//     The distribution maps the generator's output range into [a, b].
+//
+//     Suppose the generator produces values in the range [0, Max],
+//     and the target range size is N (e.g., {0, 1, 2, 3}, N = 4).
+//     The distribution uses division to map the generator’s range into [a, b].
+//
+//     If a generated number falls into the "leftover tail" (the part that cannot be evenly divided),
+//     it is discarded to ensure fairness (uniformity).
+//
+//     (In contrast, using rand() % N introduces bias due to uneven remainders.)
 } // namespace Parser

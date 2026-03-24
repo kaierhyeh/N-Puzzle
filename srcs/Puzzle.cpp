@@ -129,6 +129,56 @@ bool Puzzle::isSolvable(const Puzzle& goal) const {
 //     解讀：數字 0（空白格）的目標位置是在 Index 4。
 // 找出每個數字在 std::vector<int> goal.board 中的位置。
 
+// What happens when you make a "valid move"?
+// No matter whether you slide up, down, left, or right,
+// it is essentially a **swap between the empty tile (0) and a number (X)**.
+
+// Let’s break it into two parts:
+// -------------------------------------------------------------------
+// Part 1: Manhattan Distance of the Blank (blankDist)
+// - When you move the blank tile by one step, its row or column
+//   in 2D coordinates must change by +1 or -1.
+// - This means blankDist will always change by exactly 1.
+// - Conclusion: with every move, the parity of blankDist always flips
+//   (even → odd, or odd → even).
+// -------------------------------------------------------------------
+// Part 2: Number of Inversions
+// - Since each move is a swap between the blank and a tile (X),
+//   the total number of inversions in the sequence may increase or decrease.
+// - The key point: regardless of how many inversions are added or removed,
+//   the parity of inversions will also always flip
+//   (e.g., from 21 → 22 or 20, i.e., odd ↔ even).
+// -------------------------------------------------------------------
+// Therefore, no matter how we move, the overall parity of the board remains constant:
+// (inversions + blank distance) always stays either even or odd.
+//
+// So if the parity of the current board differs from the goal board,
+// it means they belong to two disconnected state spaces (no solution exists).
+//
+// Since the goal state always has even parity,
+// any solvable board must also have even parity.
+
+// goalPos: reverse lookup table for goal.board
+//     "Where should this number be located?"
+// Example:
+// [1] [2] [3]
+// [8] [0] [4]
+// [7] [6] [5]
+// goal.board = [1, 2, 3, 8, 0, 4, 7, 6, 5]
+//
+// When i = 0:
+//     goal.board[0] = 1
+//     Code: goalPos[1] = 0
+//     Meaning: tile 1 should be at index 0
+//
+// When i = 4:
+//     goal.board[4] = 0
+//     Code: goalPos[0] = 4
+//     Meaning: tile 0 (blank) should be at index 4
+//
+// This structure allows us to quickly find the target position
+// of each number in std::vector<int> goal.board.
+
 
 void Puzzle::print(std::ostream& os) const {
     int maxVal = size * size - 1;
@@ -149,6 +199,19 @@ void Puzzle::print(std::ostream& os) const {
 // std::log10(maxVal) + 1 是一個非常聰明的數學技巧，用來算出數字有幾位數。
 // - 例如 3x3 最大數字是 8，log10(8) 大約 0.9，+1 後轉整數 = 1。
 // - 例如 4x4 最大數字是 15，log10(15) 大約 1.1，+1 後轉整數 = 2。
+
+// Ensures all numbers are neatly aligned like a table, regardless of their size.
+//
+// std::setw(width):
+//     Reserves a field with a width of "width" characters.
+//     Used to determine how much space is needed to display the largest number.
+//
+// std::log10(maxVal) + 1 is a clever mathematical trick to calculate
+// the number of digits in a number.
+// - For example, in a 3x3 puzzle, the largest number is 8.
+//   log10(8) ≈ 0.9 → +1 → cast to int = 1 digit.
+// - For example, in a 4x4 puzzle, the largest number is 15.
+//   log10(15) ≈ 1.1 → +1 → cast to int = 2 digits.
 
 
 bool Puzzle::operator==(const Puzzle& other) const {
@@ -171,3 +234,19 @@ namespace std {
 // - size_t seed：這是雜湊值的「地基」。
 // - 0x9e3779b9：這是一個來自黃金比例的常數（$2^{32} / \phi$），在雜湊界非常有名（通常在 Boost 庫中被廣泛使用）。它的作用是確保雜湊值的每一位元 (bits) 都能夠被隨機且均勻地分散開來，減少碰撞 (Collision)。
 // - seed ^= ... + (seed << 6) + (seed >> 2)：這個公式能把盤面上的每一個數字依序「攪拌」進主雜湊值裡面。
+
+// Custom hash function: assigns each Puzzle a unique "digital identity"
+// to quickly determine whether a state has been seen before.
+//
+// - size_t seed:
+//     This is the "foundation" of the hash value.
+//
+// - 0x9e3779b9:
+//     A constant derived from the golden ratio (2^32 / φ).
+//     It is widely used in hashing (notably in the Boost library).
+//     Its purpose is to ensure that bits are well distributed,
+//     reducing the chance of collisions.
+//
+// - seed ^= ... + (seed << 6) + (seed >> 2):
+//     This formula incrementally "mixes" each number in the board
+//     into the main hash value, creating a well-distributed result.

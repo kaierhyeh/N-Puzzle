@@ -56,21 +56,37 @@ SearchResult solve(const Puzzle& initial, const Puzzle& goal,
     };
 
     // 1-3. 建立儲存格式
+    // 1-3. Build storage structures
+
     // - 優先隊列 (min-heap)
+    // - Priority queue (min-heap)
+
     // std::priority_queue：容器適配器 (Container Adapter)
+    // std::priority_queue: a container adapter
     //     它並不直接管理記憶體，而是封裝了另一個容器（如 vector）並對它施加了 「堆積 (Heap)」 的排序邏輯。
+    //     It does not manage memory directly; instead, it wraps another container (such as vector)
+    //     and applies heap ordering logic on top of it.
+
     // std::priority_queue<儲存元素的類型, 存放元素的容器類型, 優先序判定規則>
+    // std::priority_queue<element type, underlying container type, comparator>
     std::priority_queue<Node, std::vector<Node>, std::greater<Node>> openQueue;
 
     // 已知最佳 g值：Key-Value Pair(Python的dict)，儲存當前的盤面與其對應的 g值，可快速搜尋。
+    // Best known g-value: Key-Value pair (like Python dict), stores each board state
+    // and its corresponding g-value for fast lookup.
     std::unordered_map<Puzzle, int> bestG;
 
     // 已處理的盤面：元素有唯一性、沒有順序 (set has unique elements)
+    // Processed states: elements are unique and unordered (set has unique elements)
     // 以盤面內容直接查詢，而不是用 index: 1, 2, 3...
+    // Lookup is done directly by board content, not by index (1, 2, 3...).
     std::unordered_set<Puzzle> closed;
 
     // 用於路徑回溯的節點映射
+    // Node mapping used for path reconstruction
+
     // std::shared_ptr：智慧指標 smart pointer (自動回收記憶體，不用 delete)
+    // std::shared_ptr: smart pointer (automatically manages memory, no need for delete)
     std::unordered_map<Puzzle, std::shared_ptr<Node>> nodeMap;
 
     // 1-4. 初始化起始節點
@@ -172,3 +188,29 @@ SearchMode getSearchMode(const std::string& name) {
 }
 
 } // namespace Solver
+
+// Total number of states ever selected in the "opened" set (time complexity):
+// "The program does not find the correct path on the first try."
+
+// The difference between the metrics can be explained more intuitively:
+
+// 1. Number of Moves (final solution length) = "length of the correct answer path"
+//    This is like using Google Maps navigation. From start to destination,
+//    the final blue route represents the optimal path.
+//    The number of steps (turns) along this path is the solution length.
+//    In this problem, the optimal path has 24 moves (Move 1 to Move 24).
+
+// 2. States Opened (expanded states) = "intersections explored while searching for the path"
+//    The algorithm has no omniscient knowledge; it does not know the correct path in advance.
+
+// While searching for this optimal 24-step solution, the algorithm goes through the following process:
+
+// 1. It explores a few moves in one direction (expanding some states) and initially finds it promising.
+// 2. After several steps, it realizes that this path becomes less promising
+//    (dead ends or longer detours).
+// 3. It then backtracks and selects another previously unexplored state that now looks more promising,
+//    exploring a different branch.
+// 4. This process continues, trying multiple possibilities in a back-and-forth manner.
+
+// During this exploration process, the algorithm examines a total of 774 different states
+// before finally discovering the optimal 24-move solution that reaches the goal.

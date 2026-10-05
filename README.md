@@ -6,6 +6,8 @@
 
 # N-Puzzle Solver
 
+https://github.com/user-attachments/assets/c30fcb1b-09b7-44bf-8865-c162106916ae
+
 This is an N-Puzzle solver written in C++. It utilizes the **A\* (A-Star)** search algorithm to efficiently solve puzzles of various types and sizes (3x3, 4x4, 5x5, etc.).
 
 This project is designed to explore heuristic search algorithms, optimization techniques, and space/time complexity tradeoff.
@@ -114,10 +116,8 @@ It is a **fully static file**—no server required. Simply open it in any modern
 **Key Features:**
 1. **Snail Goal Support**: Aligned with the spiral goal of this project; correctly placed tiles glow with a neon border.
 2. **Interactive Mode**: Manually click tiles to slide them. Useful for verifying parity and connectivity theories.
-3. **Autoplay Path**: Paste the output move sequence from your `sizeN_Mmoves.txt` report into the visualizer to watch the A* algorithm's optimal path in ### 📺 Demo
-<video src="npuzzle.mp4" width="100%" controls></video>
-
-<br/>
+3. **Autoplay Path**: Paste the output move sequence from your `sizeN_Mmoves.txt` report into the visualizer to watch the A* algorithm's optimal path.
+<br>
 
 ---
 
@@ -241,5 +241,4 @@ make
 2. **Interactive Mode (手動點擊)**：可輸入自定義的盤面，手動點擊方塊滑動，隨時查看距離目標的位移數量，適合用來驗證「拼圖奇偶性與連通性」。
 3. **Autoplay (自動播放路徑)**：只需將本程式輸出的 `sizeN_Mmoves.txt` 中的解法貼上，網頁便會自動演示 A* 演算法計算出的滑動路徑。
 
-### 📺 預覽
-<video src="npuzzle.mp4" width="100%" controls></video>
+### 📺 [Demo-backup](https://github.com/kaierhyeh/N-Puzzle/blob/main/npuzzle.mp4)
